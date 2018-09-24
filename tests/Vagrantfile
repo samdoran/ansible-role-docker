@@ -1,0 +1,93 @@
+Vagrant.configure(2) do |config|
+
+  config.ssh.insert_key = false
+
+  # CentOS 7
+  config.vm.define "docker-centos7" do |centos7|
+    centos7.vm.box = "samdoran/centos7"
+    centos7.vm.hostname = "docker-centos7"
+    centos7.vm.network "private_network", ip: "10.77.19.101"
+    config.vm.provider "virtualbox" do |vbox|
+      vbox.name = "docker-el7"
+      vbox.cpus = 1
+      vbox.memory = 512
+    end
+  end
+
+  # Ubuntu 14.04
+  config.vm.define "docker-ub14" do |ub14|
+    ub14.vm.box = "geerlingguy/ubuntu1404"
+    ub14.vm.hostname = "docker-ub14"
+    ub14.vm.network "private_network", ip: "10.77.19.103"
+    config.vm.provider "virtualbox" do |vbox|
+      vbox.name = "docker-ub14"
+      vbox.cpus = 1
+      vbox.memory = 512
+    end
+  end
+
+  # Ubuntu 16.04
+  config.vm.define "docker-ub16" do |ub16|
+    ub16.vm.box = "geerlingguy/ubuntu1604"
+    ub16.vm.hostname = "docker-ub16"
+    ub16.vm.network "private_network", ip: "10.77.19.104"
+    ub16.vm.provider "virtualbox" do |vbox|
+      vbox.name = "docker-ub16"
+      vbox.cpus = 1
+      vbox.memory = 512
+    end
+  end
+
+  # Ubuntu 18.04
+  config.vm.define "docker-ub18" do |ub18|
+    ub18.vm.box = "geerlingguy/ubuntu1804"
+    ub18.vm.hostname = "docker-ub18"
+    ub18.vm.network "private_network", ip: "10.77.19.105"
+    ub18.vm.provider "virtualbox" do |vbox|
+      vbox.name = "docker-ub18"
+      vbox.cpus = 1
+      vbox.memory = 512
+    end
+  end
+
+  # Debian 7
+  config.vm.define "docker-deb7" do |deb7|
+    deb7.vm.box = "debian/jessie64"
+    deb7.vm.hostname = "docker-deb7"
+    deb7.vm.network "private_network", ip: "10.77.19.107"
+    deb7.vm.provider "virtualbox" do |vbox|
+      vbox.name = "docker-deb7"
+      vbox.cpus = 1
+      vbox.memory = 512
+    end
+  end
+
+  # Debian 8
+  config.vm.define "docker-deb8" do |deb8|
+    deb8.vm.box = "debian/jessie64"
+    deb8.vm.hostname = "docker-deb8"
+    deb8.vm.network "private_network", ip: "10.77.19.108"
+    deb8.vm.provider "virtualbox" do |vbox|
+      vbox.name = "docker-deb8"
+      vbox.cpus = 1
+      vbox.memory = 512
+    end
+  end
+
+  # Debian 9
+  config.vm.define "docker-deb9" do |deb9|
+    deb9.vm.box = "debian/stretch64"
+    deb9.vm.hostname = "docker-deb9"
+    deb9.vm.network "private_network", ip: "10.77.19.109"
+    deb9.vm.provider "virtualbox" do |vbox|
+      vbox.name = "docker-deb9"
+      vbox.cpus = 1
+      vbox.memory = 512
+    end
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "vagrant.yml"
+    ansible.compatibility_mode = "2.0"
+  end
+end

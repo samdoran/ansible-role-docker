@@ -1,0 +1,9 @@
+- name: start docker
+  service:
+    name: "{{ docker_service_name }}"
+    state: started
+
+- name: restart docker
+  service:
+    name: "{{ docker_service_name }}"
+    state: restarted
