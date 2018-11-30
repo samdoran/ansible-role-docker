@@ -1,9 +1,8 @@
 Docker
 =========
 [![Galaxy](https://img.shields.io/badge/galaxy-samdoran.docker-blue.svg?style=flat)](https://galaxy.ansible.com/samdoran/docker)
-[![Build Status](https://travis-ci.org/samdoran/ansible-role-docker.svg?branch=master)](https://travis-ci.org/samdoran/ansible-role-docker)
 
-Install Docker.
+Install Docker CE.
 
 Requirements
 ------------
@@ -15,7 +14,8 @@ Role Variables
 
 | Name              | Default Value       | Description          |
 |-------------------|---------------------|----------------------|
-| `` | `` |  |
+| `docker_service_name` | `docker` | Service name to start/stop. |
+| `docker_repo_file` | `docker-ce` | Repo file name on systems using `yum` |
 
 
 Dependencies
