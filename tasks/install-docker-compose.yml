@@ -1,0 +1,28 @@
+- name: Check if Docker Compose binary exists
+  stat:
+    path: "{{ docker_compose_path }}"
+  register: docker_compose_bin
+  tags:
+    - always
+
+- name: Get current Docker Compose version
+  command: "{{ docker_compose_path }} --version"
+  register: current_docker_compose_version
+  changed_when: false
+  failed_when: false
+  tags:
+    - always
+
+- name: Download Docker Compose binary
+  get_url:
+    url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_facts.system }}-{{ ansible_facts.architecture }}
+    dest: "{{ docker_compose_path }}"
+    force: true
+    mode: 0755
+  when: >
+    not docker_compose_bin.stat.exists or
+    current_docker_compose_version.stdout is defined and
+    docker_compose_version not in current_docker_compose_version.stdout
+  tags:
+    - docker
+    - docker_compose

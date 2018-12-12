@@ -6,3 +6,10 @@
 - include_tasks: "install-{{ ansible_facts['os_family'] }}.yml"
   tags:
     - docker
+
+- name: Install Docker Compose
+  include_tasks: install-docker-compose.yml
+  when: docker_compose_install
+  tags:
+    - docker
+    - docker_compose
