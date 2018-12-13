@@ -26,11 +26,17 @@
     - yum
     - package
 
+- name: YUM | Workaround for Docker 18.09
+  include_tasks: docker-1809-workaround.yml
+  when:
+    - ansible_facts.virtualization_type == 'docker'
+    - ansible_facts.service_mgr == 'systemd'
+
 - name: YUM | Start and enable Docker
   service:
     name: "{{ docker_service_name }}"
     state: started
-    enabled: yes
+    enabled: true
   tags:
     - docker
     - service

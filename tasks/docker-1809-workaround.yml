@@ -1,0 +1,21 @@
+# https://github.com/docker/for-linux/issues/162#issuecomment-357913945
+- name: YUM | Remove bind to containerd.service when running in a container
+  ini_file:
+    path: /usr/lib/systemd/system/docker.service
+    section: Unit
+    option: BindsTo
+    value: ''
+    no_extra_spaces: true
+  register: docker_service_file
+  when:
+    - ansible_facts.virtualization_type == 'docker'
+    - ansible_facts.service_mgr == 'systemd'
+  tags:
+    - docker
+
+- name: YUM | SystemD daemon reload
+  systemd:
+    daemon_reload: true
+  when:
+    - ansible_facts.service_mgr == 'systemd'
+    - docker_service_file is changed
