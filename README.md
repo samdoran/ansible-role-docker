@@ -15,7 +15,9 @@ Role Variables
 | Name              | Default Value       | Description          |
 |-------------------|---------------------|----------------------|
 | `docker_service_name` | `docker` | Service name to start/stop. |
-| `docker_repo_file` | `docker-ce` | Repo file name on systems using `yum` |
+| `docker_group` | `docker` | Name of the group users will be added to in order to be able to run Docker commands |
+| `docker_edition` | `ce` | Which Docker editon to install. Options are `ce` or `ee` |
+| `docker_users` | `[]` | List of users to add to `docker_group` |
 | `docker_compose_install` | `true` | Whether or not to install Docker Compose |
 | `docker_compose_version` | `1.23.1` | Docker Compose version to install |
 | `docker_compose_path` | `/usr/local/bin/docker-compose` | Path to install [Docker Compose](https://docs.docker.com/compose/overview/) binary |

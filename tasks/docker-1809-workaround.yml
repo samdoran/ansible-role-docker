@@ -7,15 +7,10 @@
     value: ''
     no_extra_spaces: true
   register: docker_service_file
-  when:
-    - ansible_facts.virtualization_type == 'docker'
-    - ansible_facts.service_mgr == 'systemd'
   tags:
     - docker
 
 - name: YUM | SystemD daemon reload
   systemd:
     daemon_reload: true
-  when:
-    - ansible_facts.service_mgr == 'systemd'
-    - docker_service_file is changed
+  when: docker_service_file is changed

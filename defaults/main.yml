@@ -1,5 +1,7 @@
 docker_service_name: docker
-docker_repo_file: docker-ce
+docker_edition: ce
+docker_group: docker
+docker_users: []
 
 # Docker Compose
 docker_compose_install: true

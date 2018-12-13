@@ -9,7 +9,7 @@
     enabled: "{{ item.enabled | default(omit) }}"
     gpgcheck: "{{ item.gpgcheck | default(omit) }}"
     gpgkey: "{{ item.gpgkey | default(omit) }}"
-  loop: "{{ docker_yum_repositories }}"
+  loop: "{{ docker_yum_repositories[docker_edition | lower] }}"
   tags:
     - docker
     - yum

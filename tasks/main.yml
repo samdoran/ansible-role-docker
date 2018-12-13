@@ -7,6 +7,14 @@
   tags:
     - docker
 
+- name: Add users to docker group
+  user:
+    name: "{{ item }}"
+    group: "{{ docker_group }}"
+  loop: "{{ docker_users }}"
+  tags:
+    - docker
+
 - name: Install Docker Compose
   include_tasks: install-docker-compose.yml
   when: docker_compose_install

@@ -7,9 +7,21 @@
           Testing with Ansible {{ ansible_version.full }} using Python {{ ansible_python_version }}
           on {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }}
 
+    - name: Create test user
+      user:
+        name: docktu
+
     - import_role:
         name: docker
+      vars:
+        docker_users:
+          - docktu
 
     - name: Test that Docker is running
       command: docker ps
+      changed_when: false
+
+    - name: Test that Docker users can run commands
+      command: docker ps
+      become_user: docktu
       changed_when: false
