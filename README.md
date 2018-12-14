@@ -1,6 +1,7 @@
 Docker
 =========
 [![Galaxy](https://img.shields.io/badge/galaxy-samdoran.docker-blue.svg?style=flat)](https://galaxy.ansible.com/samdoran/docker)
+[![Build Status](https://travis-ci.org/samdoran/ansible-role-docker.svg?branch=master)](https://travis-ci.org/samdoran/ansible-role-docker)
 
 Install Docker CE.
 
