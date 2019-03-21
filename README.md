@@ -8,7 +8,8 @@ Install Docker CE.
 Requirements
 ------------
 
-None.
+RHEL: `rhel-7-server-extras-rpms` repo enabled
+CentOS: `extras` repo enabled
 
 Role Variables
 --------------
