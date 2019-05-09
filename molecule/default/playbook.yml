@@ -1,5 +1,5 @@
 - hosts: all
-  become: true
+  become: yes
 
   tasks:
     - debug:
@@ -19,9 +19,9 @@
 
     - name: Test that Docker is running
       command: docker ps
-      changed_when: false
+      changed_when: no
 
     - name: Test that Docker users can run commands
       command: docker ps
       become_user: docktu
-      changed_when: false
+      changed_when: no

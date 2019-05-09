@@ -35,7 +35,7 @@
   service:
     name: "{{ docker_service_name }}"
     state: started
-    enabled: true
+    enabled: yes
   tags:
     - docker
     - service

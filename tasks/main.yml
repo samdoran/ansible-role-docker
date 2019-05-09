@@ -1,9 +1,9 @@
 - name: Include distribution specific variables
-  include_vars: "{{ ansible_facts['os_family'] }}.yml"
+  include_vars: "{{ ansible_facts.os_family }}.yml"
   tags:
     - docker
 
-- include_tasks: "install-{{ ansible_facts['os_family'] }}.yml"
+- include_tasks: "install-{{ ansible_facts.os_family }}.yml"
   tags:
     - docker
 

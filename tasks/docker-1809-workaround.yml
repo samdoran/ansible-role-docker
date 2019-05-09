@@ -5,12 +5,12 @@
     section: Unit
     option: BindsTo
     value: ''
-    no_extra_spaces: true
+    no_extra_spaces: yes
   register: docker_service_file
   tags:
     - docker
 
 - name: YUM | SystemD daemon reload
   systemd:
-    daemon_reload: true
+    daemon_reload: yes
   when: docker_service_file is changed

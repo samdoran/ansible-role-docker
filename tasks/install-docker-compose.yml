@@ -8,8 +8,8 @@
 - name: Get current Docker Compose version
   command: "{{ docker_compose_path }} --version"
   register: current_docker_compose_version
-  changed_when: false
-  failed_when: false
+  changed_when: no
+  failed_when: no
   tags:
     - always
 
@@ -17,9 +17,9 @@
   get_url:
     url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_facts.system }}-{{ ansible_facts.architecture }}
     dest: "{{ docker_compose_path }}"
-    force: true
-    mode: 0755
-  when: >
+    force: yes
+    mode: '0755'
+  when:
     not docker_compose_bin.stat.exists or
     current_docker_compose_version.stdout is defined and
     docker_compose_version not in current_docker_compose_version.stdout
