@@ -1,4 +1,12 @@
-- include_vars: RedHat.yml
+- name: Include distribution specific variables
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_facts.distribution }}.yml"
+        - "{{ ansible_facts.os_family }}.yml"
+      paths:
+        - vars
 
 - name: YUM | Add Docker repositories
   yum_repository:
