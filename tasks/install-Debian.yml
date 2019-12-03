@@ -16,6 +16,7 @@
 - name: APT | Install preliminary packages
   apt:
     name: "{{ docker_os_packages }}"
+    install_recommends: no
     state: present
     update_cache: yes
     cache_valid_time: 600
@@ -45,6 +46,7 @@
     update_cache: yes
     cache_valid_time: 0
     name: "{{ docker_packages }}"
+    install_recommends: no
     state: latest
   tags:
     - docker
