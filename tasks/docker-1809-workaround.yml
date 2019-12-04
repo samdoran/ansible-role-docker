@@ -1,16 +1,30 @@
-# https://github.com/docker/for-linux/issues/162#issuecomment-357913945
+- name: YUM | Create systemd override directory
+  file:
+    path: /etc/systemd/system/docker.service.d/
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  tags:
+    - docker
+
 - name: YUM | Remove bind to containerd.service when running in a container
   ini_file:
-    path: /usr/lib/systemd/system/docker.service
+    path: /etc/systemd/system/docker.service.d/override.conf
     section: Unit
-    option: BindsTo
-    value: ''
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
     no_extra_spaces: yes
-  register: docker_service_file
+  register: docker_override_file
+  loop:
+    - option: BindsTo
+      value: ''
+    - option: After
+      value: network-online.target firewalld.service
   tags:
     - docker
 
 - name: YUM | SystemD daemon reload
   systemd:
     daemon_reload: yes
-  when: docker_service_file is changed
+  when: docker_override_file is changed
