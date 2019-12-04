@@ -1,0 +1,19 @@
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Test that Docker is running
+      command: docker ps
+
+    - name: Test that Docker users can run commands
+      command: docker ps
+      become_user: docktu
+
+    - name: Get Docker version
+      command: docker version
+      register: docker_version
+      changed_when: no
+
+    - name: Show Docker version
+      debug:
+        msg: "{{ docker_version.stdout_lines }}"

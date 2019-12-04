@@ -7,6 +7,10 @@
           Testing with Ansible {{ ansible_version.full }} using Python {{ ansible_facts.python_version }}
           on {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }}
 
+    - debug:
+        msg: 'Virt type: {{ansible_facts.virtualization_type}}, Service Manager: {{ansible_facts.service_mgr}}'
+      tags: debug
+
     - name: Create test user
       user:
         name: docktu
@@ -16,12 +20,3 @@
       vars:
         docker_users:
           - docktu
-
-    - name: Test that Docker is running
-      command: docker ps
-      changed_when: no
-
-    - name: Test that Docker users can run commands
-      command: docker ps
-      become_user: docktu
-      changed_when: no
