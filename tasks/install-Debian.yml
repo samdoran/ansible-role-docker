@@ -4,7 +4,7 @@
 - include_vars: Debian-new.yml
   when: ansible_facts.distribution_major_version is version('7', '>')
 
-- name: APT | Check kernel version
+- name: DEBIAN | Check kernel version
   assert:
     msg: "Kernel version 3.10 or later is required. {{ ansible_facts.kernel }} is not supported"
     that:
@@ -13,7 +13,7 @@
     - always
   when: ansible_facts.distribution_major_version is version('7', '<=')
 
-- name: APT | Install preliminary packages
+- name: DEBIAN | Install preliminary packages
   apt:
     name: "{{ docker_os_packages }}"
     install_recommends: no
@@ -24,7 +24,7 @@
     - docker
     - package
 
-- name: APT | Add Docker GPG key
+- name: DEBIAN | Add Docker GPG key
   apt_key:
     url: https://download.docker.com/linux/debian/gpg
     id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
@@ -33,7 +33,7 @@
     - docker
     - package
 
-- name: APT | Add Docker repository
+- name: DEBIAN | Add Docker repository
   apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_facts['distribution_release'] }} stable
     state: present
@@ -41,7 +41,7 @@
     - docker
     - package
 
-- name: APT | Install Docker packages
+- name: DEBIAN | Install Docker packages
   apt:
     update_cache: yes
     cache_valid_time: 0

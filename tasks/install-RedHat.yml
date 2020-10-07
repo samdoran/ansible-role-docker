@@ -3,12 +3,16 @@
   vars:
     params:
       files:
+        - "{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version }}.yml"
+        - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_version }}.yml"
         - "{{ ansible_facts.distribution }}.yml"
         - "{{ ansible_facts.os_family }}.yml"
       paths:
         - vars
+  tags:
+    - docker
 
-- name: YUM | Add Docker repositories
+- name: RHEL | Add Docker repositories
   yum_repository:
     file: "{{ docker_repo_file }}"
     name: "{{ item.name }}"
@@ -24,7 +28,18 @@
     - reposity
     - package
 
-- name: YUM | Install Docker packages
+- name: RHEL | Install containerd.io
+  dnf:
+    name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+    state: present
+    disable_gpg_check: yes
+  when: ansible_facts.distribution_version is version('8' , '>=')
+  tags:
+    - docker
+    - yum
+    - package
+
+- name: RHEL | Install Docker packages
   yum:
     name: "{{ docker_packages | union(docker_os_packages | default([])) }}"
     state: latest
@@ -33,13 +48,15 @@
     - yum
     - package
 
-- name: YUM | Workaround for Docker 18.09
+- name: RHEL | Workaround for Docker 18.09
   include_tasks: docker-1809-workaround.yml
   when:
     - ansible_facts.virtualization_type == 'docker'
     - ansible_facts.service_mgr == 'systemd'
+  tags:
+    - docker
 
-- name: YUM | Start and enable Docker
+- name: RHEL | Start and enable Docker
   service:
     name: "{{ docker_service_name }}"
     state: started
