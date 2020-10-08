@@ -4,6 +4,6 @@ docker_group: docker
 docker_users: []
 
 # Docker Compose
-docker_compose_install: true
+docker_compose_install: yes
 docker_compose_version: '1.23.1'
 docker_compose_path: /usr/local/bin/docker-compose
