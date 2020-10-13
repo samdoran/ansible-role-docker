@@ -10,9 +10,7 @@
   loop: "{{ docker_yum_repositories[docker_edition | lower] }}"
   tags:
     - docker
-    - yum
-    - reposity
-    - package
+    - docker_repo
 
 - name: RHEL | Install Docker packages
   yum:
@@ -20,5 +18,3 @@
     state: latest
   tags:
     - docker
-    - yum
-    - package

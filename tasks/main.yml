@@ -24,7 +24,6 @@
     enabled: yes
   tags:
     - docker
-    - service
 
 - name: Add users to docker group
   user:

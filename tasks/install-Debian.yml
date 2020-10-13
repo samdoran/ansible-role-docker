@@ -3,9 +3,13 @@
   block:
     - include_vars: Debian-old.yml
       when: ansible_facts.distribution_major_version is version('7', '<=')
+      tags:
+        - docker
 
     - include_vars: Debian-new.yml
       when: ansible_facts.distribution_major_version is version('7', '>')
+      tags:
+        - docker
 
     - name: DEBIAN | Check kernel version
       assert:
@@ -13,7 +17,7 @@
         that:
           - ansible_facts.kernel.split('.')[:3] | join('.') is version('3.10', '>=')
       tags:
-        - always
+        - docker
       when: ansible_facts.distribution_major_version is version('7', '<=')
 
 - name: DEBIAN | Install preliminary packages
@@ -24,7 +28,6 @@
     cache_valid_time: 600
   tags:
     - docker
-    - package
 
 - name: DEBIAN | Add Docker GPG key
   apt_key:
@@ -33,7 +36,6 @@
     state: present
   tags:
     - docker
-    - package
 
 - name: DEBIAN | Add Docker repository
   apt_repository:
@@ -42,7 +44,7 @@
     mode: '0644'
   tags:
     - docker
-    - package
+    - docker_repo
 
 - name: DEBIAN | Install Docker
   apt:
@@ -51,4 +53,3 @@
     state: latest
   tags:
     - docker
-    - package

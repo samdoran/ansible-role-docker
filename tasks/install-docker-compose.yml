@@ -3,7 +3,7 @@
     path: "{{ docker_compose_path }}"
   register: docker_compose_bin
   tags:
-    - always
+    - docker
 
 - name: Get current Docker Compose version
   command: "{{ docker_compose_path }} --version"
@@ -11,7 +11,7 @@
   changed_when: no
   failed_when: no
   tags:
-    - always
+    - docker
 
 - name: Download Docker Compose binary
   get_url:
