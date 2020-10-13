@@ -3,7 +3,7 @@ dependency:
 driver:
   name: docker
 lint: |
-  ansible-lint -x 204,208,403,502 --exclude molecule
+  ansible-lint -x 204,403,502 --exclude molecule
   yamllint -c molecule/yamllint.yml .
 platforms:
   - name: docker-test-${MOLECULE_DISTRIBUTION:-centos8}
@@ -21,6 +21,3 @@ scenario:
   name: default
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
-    enabled: no
