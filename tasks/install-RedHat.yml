@@ -14,19 +14,6 @@
     - reposity
     - package
 
-- name: RHEL | Install old containerd.io (RHEL 8 only)
-  dnf:
-    name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
-    state: present
-    disable_gpg_check: yes
-  when:
-    - ansible_facts.distribution in ['RedHat', 'CentOS']
-    - ansible_facts.distribution_version is version('8' , '==')
-  tags:
-    - docker
-    - yum
-    - package
-
 - name: RHEL | Install Docker packages
   yum:
     name: "{{ ['docker-' ~ docker_edition] | union(docker_os_packages | default([])) }}"
