@@ -44,9 +44,9 @@
     - docker
     - package
 
-- name: DEBIAN | Install Docker packages
+- name: DEBIAN | Install Docker
   apt:
-    name: "{{ docker_packages }}"
+    name: docker-{{ docker_edition }}
     install_recommends: no
     state: latest
   tags:
