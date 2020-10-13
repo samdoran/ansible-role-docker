@@ -8,8 +8,7 @@ Install Docker CE.
 Requirements
 ------------
 
-RHEL: `rhel-7-server-extras-rpms` repo enabled
-CentOS: `extras` repo enabled
+None.
 
 Role Variables
 --------------
@@ -23,6 +22,7 @@ Role Variables
 | `docker_compose_install` | `yes` | Whether or not to install Docker Compose |
 | `docker_compose_version` | `1.26.0` | Docker Compose version to install |
 | `docker_compose_path` | `/usr/local/bin/docker-compose` | Path to install [Docker Compose](https://docs.docker.com/compose/overview/) binary |
+| `docker_yum_repositories` | `[see defaults/main.yml]` | Docker repsitories used on RHEL distributions.  |
 
 
 Dependencies
