@@ -16,7 +16,7 @@
 
 - name: RHEL | Install Docker packages
   yum:
-    name: "{{ ['docker-' ~ docker_edition] | union(docker_os_packages | default([])) }}"
+    name: "{{ ['docker-' ~ docker_edition] | union(_docker_os_packages | default([])) }}"
     state: latest
   tags:
     - docker
