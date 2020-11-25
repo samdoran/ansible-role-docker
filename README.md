@@ -8,7 +8,7 @@ Install Docker CE.
 Requirements
 ------------
 
-None.
+- `docker` Python SDK installed on managed node
 
 Role Variables
 --------------
@@ -22,7 +22,8 @@ Role Variables
 | `docker_compose_install` | `yes` | Whether or not to install Docker Compose |
 | `docker_compose_version` | `1.26.0` | Docker Compose version to install |
 | `docker_compose_path` | `/usr/local/bin/docker-compose` | Path to install [Docker Compose](https://docs.docker.com/compose/overview/) binary |
-| `docker_yum_repositories` | `[see defaults/main.yml]` | Docker repsitories used on RHEL distributions.  |
+| `docker_yum_repositories` | `[see defaults/main.yml]` | Docker repositories used on RHEL distributions.  |
+| `docker_daemon_config` | `~` | Dictionary of settings that will be converted to JSON and put in `/etc/docker/daemon.json`. Make sure these options are valid or Docker will fail to start. With the default value, this file will be removed. |
 
 
 Dependencies
