@@ -16,5 +16,6 @@
   yum:
     name: "{{ ['docker-' ~ docker_edition] | union(_docker_os_packages | default([])) }}"
     state: latest
+    allowerasing: yes
   tags:
     - docker
